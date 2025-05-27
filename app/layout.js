@@ -1,12 +1,13 @@
 // app/layout.js
-import './globals.css'; // Import the global CSS file
+import './globals.css';
 import { Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react'; // Import the Analytics component
 
 // Configure the Inter font
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter', // This creates the CSS variable --font-inter
+  variable: '--font-inter',
 });
 
 export const metadata = {
@@ -16,14 +17,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    // Apply the font variable class to <html> to make --font-inter available globally
     <html lang="en" className={inter.variable}>
       <head>
         {/* Head content */}
       </head>
-      {/* Apply the direct font class to <body> */}
       <body className={inter.className}>
         {children}
+        <Analytics /> {/* Add the Analytics component here, just before closing </body> */}
       </body>
     </html>
   );
