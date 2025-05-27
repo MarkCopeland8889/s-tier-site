@@ -1,0 +1,52 @@
+/* app/globals.css */
+:root {
+  --background-color: #121212;
+  --text-color: #e0e0e0;
+  --primary-color: #1e1e1e;
+  --secondary-color: #2a2a2a;
+  --accent-color: #007bff;
+  --accent-hover-color: #0056b3;
+  --border-color: #333333;
+  --heading-color: #ffffff;
+  /* --font-inter is provided by next/font in layout.js and applied to <html> */
+}
+
+html {
+  /* Apply the Inter font globally via the CSS variable */
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+               Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+  font-size: 16px;
+  /* The font-family is inherited from html, and also reinforced by inter.className on body */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-hover-color);
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  margin-top: 0;
+}
