@@ -1,16 +1,18 @@
 // app/page.js
 "use client";
 
+import Link from 'next/link'; // Import the Link component
+import Image from 'next/image'; // Import the Image component
+
 // IMPORTANT: Update this path if your logo file has a different name or is in a subfolder within /public
 const LOGO_SRC = "/s-tier-logo.png"; // This assumes s-tier-logo.png is directly in /public
 
-// Simple Navbar Component (Minimalistic) - (Definition remains the same)
+// Simple Navbar Component (Minimalistic)
 const Navbar = () => (
   <nav style={{
     width: '100%',
     padding: '1rem 0',
-    borderBottom: `1px solid var(--border-color)`, // Assuming --border-color is defined in globals.css
-    // Removed marginBottom as logo will now dictate space below navbar if any
+    borderBottom: `1px solid var(--border-color)`,
   }}>
     <ul style={{
       display: 'flex',
@@ -20,7 +22,9 @@ const Navbar = () => (
       margin: 0,
       padding: 0,
     }}>
-      <li style={{ margin: '0 1.5rem' }}><a href="/">Home</a></li>
+      {/* Use Link for internal navigation */}
+      <li style={{ margin: '0 1.5rem' }}><Link href="/">Home</Link></li>
+      {/* For anchor links on the same page, <a> is okay, or you can use Link with scroll behavior if preferred */}
       <li style={{ margin: '0 1.5rem' }}><a href="#projects">Projects</a></li>
       <li style={{ margin: '0 1.5rem' }}><a href="#join">Join the Movement</a></li>
       <li style={{ margin: '0 1.5rem' }}><a href="#contact">Contact</a></li>
@@ -30,7 +34,7 @@ const Navbar = () => (
 
 
 export default function HomePage() {
-  const missionStatement = "The economy is changing. Speed matters more than quality. We help simplify people's lives through AI.";
+  const missionStatement = "At S-Tier, we envision a future where daily life is seamlessly enhanced by intelligent technology. Our mission is to develop intuitive AI-powered solutions that simplify complex tasks, automate routine processes, and free up your time, allowing you to focus on what truly inspires you.";
 
   return (
     <div style={{
@@ -41,45 +45,39 @@ export default function HomePage() {
       padding: '0 20px',
     }}>
 
-      {/* Navbar is now at the top */}
-      <Navbar />
+      <Navbar /> {/* Navbar is now at the top */}
 
-      {/* Logo Section - Below Navbar, Larger */}
       <header style={{
-        padding: '2rem 0', // Adjust padding as needed around the logo
+        padding: '2rem 0',
         textAlign: 'center',
         width: '100%',
-        // marginBottom: '2rem', // Add margin below logo if needed before headline
       }}>
-        <img
+        {/* Use next/image for optimized images */}
+        <Image
           src={LOGO_SRC}
           alt="S-Tier Logo"
+          width={200} // REQUIRED: Specify width (in pixels)
+          height={180} // REQUIRED: Specify height (in pixels) to maintain aspect ratio or desired dimensions
+          priority // Add priority if it's an LCP element (Largest Contentful Paint)
           style={{
-            height: '180px', // << --- INCREASED LOGO SIZE (Example, adjust as needed)
-            // width: 'auto', // To maintain aspect ratio if height is set
-            // marginBottom: '1rem', // If you want space just below the logo image
+            // 'height' and 'width' through props are preferred for layout,
+            // but you can still use style for things like marginBottom.
+            // The component will handle responsiveness.
+            marginBottom: '1rem',
           }}
-          onError={(e) => {
-            e.target.style.display = 'none';
-            const parent = e.target.parentNode;
-            if (parent) {
-                const textFallback = document.createElement('h1');
-                textFallback.textContent = 'S-Tier';
-                textFallback.style.fontSize = '5rem'; // Larger fallback text
-                textFallback.style.margin = '0';
-                textFallback.style.padding = '2.5rem 0'; // Adjust padding for visual balance
-                textFallback.style.color = 'var(--heading-color)';
-                parent.insertBefore(textFallback, e.target);
-            }
-            console.warn(`Logo not found at ${LOGO_SRC}. Displaying text fallback. Make sure your logo is in the /public folder and the path is correct.`);
-          }}
+          // onError is not a standard prop for next/image in the same way as <img>.
+          // Handle missing images by ensuring the src path is correct.
+          // If you need a fallback, it's usually handled with CSS or conditional rendering.
         />
+        {/* If you need a text fallback for next/image, it's more complex than onError.
+            Typically, you'd ensure the image exists or conditionally render text.
+            For now, focus on making sure LOGO_SRC is correct.
+        */}
       </header>
 
-      {/* Main Content (Headline, Mission, Projects) */}
       <main style={{
         textAlign: 'center',
-        padding: '1rem 0 2rem 0', // Adjusted top padding as logo is above now
+        padding: '1rem 0 2rem 0',
         maxWidth: '750px',
         width: '100%',
         flexGrow: 1,
@@ -91,7 +89,7 @@ export default function HomePage() {
           marginBottom: '1.5rem',
           color: 'var(--heading-color)',
         }}>
-          A new era is here.
+          S-Tier. A new era is here.
         </h1>
 
         <p style={{
@@ -113,7 +111,7 @@ export default function HomePage() {
             marginBottom: '2rem',
             color: 'var(--heading-color)',
           }}>
-            Projects
+            Our Groundbreaking Projects
           </h2>
           <div style={{
             display: 'grid',
@@ -121,12 +119,12 @@ export default function HomePage() {
             gap: '2rem',
           }}>
             <div style={{ backgroundColor: 'var(--primary-color)', padding: '1.5rem', borderRadius: '8px', border: `1px solid var(--border-color)`}}>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--heading-color)' }}>Nexus</h3>
-              <p style={{ fontSize: '0.95rem', color: 'var(--text-color)'}}>A chatbot interface for APIs. Supports Gemini and OpenAI.</p>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--heading-color)' }}>Project Chimera</h3>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-color)'}}>Revolutionizing personal assistance with context-aware AI. (More details soon)</p>
             </div>
             <div style={{ backgroundColor: 'var(--primary-color)', padding: '1.5rem', borderRadius: '8px', border: `1px solid var(--border-color)`}}>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--heading-color)' }}>Nova</h3>
-              <p style={{ fontSize: '0.95rem', color: 'var(--text-color)'}}>A videogame generator. Provides download links.<br></br></p>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--heading-color)' }}>Project Nova</h3>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-color)'}}>Automating complex data analysis for insightful decision-making. (Launching Q4)</p>
             </div>
             <div style={{ backgroundColor: 'var(--primary-color)', padding: '1.5rem', borderRadius: '8px', border: `1px solid var(--border-color)`}}>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--heading-color)' }}>Project Atlas</h3>
